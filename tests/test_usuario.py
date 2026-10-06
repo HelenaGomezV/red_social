@@ -30,3 +30,15 @@ def test_seguir_dos_veces_lanza_error():
 
     with pytest.raises(ValueError):
         ana.seguir(luis)
+
+
+def test_sigue_a():
+    ana = Usuario("Ana", "@ana")
+    luis = Usuario("Luis", "@luis")
+
+    assert ana.sigue_a(luis) is False
+
+    ana.seguir(luis)
+
+    assert ana.sigue_a(luis) is True
+    assert luis.sigue_a(ana) is False

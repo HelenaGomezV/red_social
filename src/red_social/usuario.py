@@ -16,3 +16,6 @@ class Usuario:
             raise ValueError("Ya sigues a este usuario")
         
         self.seguidos.append(otro)
+
+    def sigue_a(self, otro):
+        return otro in self.seguidos
