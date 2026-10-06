@@ -42,3 +42,14 @@ def test_sigue_a():
 
     assert ana.sigue_a(luis) is True
     assert luis.sigue_a(ana) is False
+
+
+def test_numero_seguidos():
+    ana = Usuario("Ana", "@ana")
+    luis = Usuario("Luis", "@luis")
+
+    assert ana.numero_seguidos == 0
+
+    ana.seguir(luis)
+
+    assert ana.numero_seguidos == 1

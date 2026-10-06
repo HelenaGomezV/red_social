@@ -19,3 +19,7 @@ class Usuario:
 
     def sigue_a(self, otro):
         return otro in self.seguidos
+
+    @property
+    def numero_seguidos(self):
+        return len(self.seguidos)
