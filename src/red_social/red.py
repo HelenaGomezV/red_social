@@ -16,3 +16,12 @@ class RedSocial:
     def publicar(self, publicacion):
         self.publicaciones.append(publicacion)
         return publicacion
+
+    def timeline(self, usuario):
+        usuarios_timeline = [usuario] + usuario.seguidos
+
+        return [
+            publicacion
+            for publicacion in self.publicaciones
+            if publicacion.autor in usuarios_timeline
+    ]

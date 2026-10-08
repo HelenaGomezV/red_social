@@ -36,3 +36,30 @@ def test_publicar_anade_publicacion():
 
     assert resultado == tweet
     assert tweet in red.publicaciones
+
+def test_timeline_muestra_publicaciones_del_usuario_y_seguidos():
+    red = RedSocial()
+
+    ana = Usuario("Ana", "@ana")
+    luis = Usuario("Luis", "@luis")
+    marta = Usuario("Marta", "@marta")
+
+    red.anadir(ana)
+    red.anadir(luis)
+    red.anadir(marta)
+
+    ana.seguir(luis)
+
+    tweet_ana = Tweet(ana, "Tweet de Ana")
+    tweet_luis = Tweet(luis, "Tweet de Luis")
+    tweet_marta = Tweet(marta, "Tweet de Marta")
+
+    red.publicar(tweet_ana)
+    red.publicar(tweet_luis)
+    red.publicar(tweet_marta)
+
+    timeline = red.timeline(ana)
+
+    assert tweet_ana in timeline
+    assert tweet_luis in timeline
+    assert tweet_marta not in timeline
