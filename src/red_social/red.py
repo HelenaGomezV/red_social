@@ -12,3 +12,7 @@ class RedSocial:
         usuario = Usuario(nombre, alias)
         self.anadir(usuario)
         return usuario
+
+    def publicar(self, publicacion):
+        self.publicaciones.append(publicacion)
+        return publicacion

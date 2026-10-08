@@ -1,3 +1,4 @@
+from red_social.publicacion import Tweet
 from red_social.red import RedSocial
 from red_social.usuario import Usuario
 
@@ -25,3 +26,13 @@ def test_registrar_usuario():
     assert ana.nombre == "Ana"
     assert ana.alias == "@ana"
     assert red.usuarios["@ana"] == ana
+
+def test_publicar_anade_publicacion():
+    red = RedSocial()
+    ana = Usuario("Ana", "@ana")
+    tweet = Tweet(ana, "Hola mundo")
+
+    resultado = red.publicar(tweet)
+
+    assert resultado == tweet
+    assert tweet in red.publicaciones
