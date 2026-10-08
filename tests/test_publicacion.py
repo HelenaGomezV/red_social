@@ -29,3 +29,28 @@ def test_texto_invalido_lanza_error(texto):
 
     with pytest.raises(ValueError):
         PublicacionPrueba(ana, texto)
+
+def test_dar_me_gusta_incrementa_contador():
+    ana = Usuario("Ana", "@ana")
+    publicacion = PublicacionPrueba(ana, "Hola")
+
+    assert publicacion.me_gusta == 0
+
+    publicacion.dar_me_gusta()
+
+    assert publicacion.me_gusta == 1
+
+    publicacion.dar_me_gusta()
+
+    assert publicacion.me_gusta == 2
+
+
+@pytest.mark.parametrize("texto, esperado", [
+    ("Hola #Python", ["#python"]),
+    ("#Python es #Genial", ["#python", "#genial"]),
+    ("Hola #Python, qué tal", ["#python"]),
+    ("#Python #python #PYTHON", ["#python"]),
+    ])
+
+def test_extraer_hashtags(texto, esperado):
+    assert PublicacionPrueba.extraer_hashtags(texto) == esperado

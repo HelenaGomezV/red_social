@@ -15,3 +15,23 @@ class Publicacion(ABC):
         self.autor = autor
         self.texto = texto
         self.me_gusta = 0
+
+    def dar_me_gusta(self):
+        self.me_gusta += 1
+
+    @property
+    def hashtags(self):
+        return self.extraer_hashtags(self.texto)
+
+    @staticmethod
+    def extraer_hashtags(texto):
+        hashtags = []
+
+        for palabra in texto.split():
+            if palabra.startswith("#") and len(palabra) > 1:
+                hashtag = palabra.lower().rstrip(",.;:!?¡¿")
+
+                if hashtag not in hashtags:
+                    hashtags.append(hashtag)
+
+        return hashtags
