@@ -4,7 +4,7 @@ from red_social.red import RedSocial
 
 def main():
     # 1. La red se carga desde un fichero: usuarios y quién sigue a quién
-    red = RedSocial.desde_json("datos/usuarios.json")
+    red = RedSocial.desde_json("../../datos/usuarios.json")
     print(f"Usuarios registrados: {len(red)}")
     for usuario in red:
         print(f"  {usuario} sigue a {usuario.numero_seguidos}")

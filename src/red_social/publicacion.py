@@ -1,6 +1,4 @@
-from abc import ABC, abstractmethod
-from red_social.usuario import Usuario
-
+from abc import ABC
 
 LIMITE_CARACTERES = 280
 
