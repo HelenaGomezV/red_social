@@ -1,5 +1,5 @@
-from red_social.publicacion import Tweet
 from red_social.usuario import Usuario
+import json
 
 class RedSocial:
     def __init__(self):
@@ -39,3 +39,21 @@ class RedSocial:
     def mostrar_timeline(self, usuario):
         for publicacion in self.timeline(usuario):
             print(publicacion)
+
+    @classmethod
+    def desde_json(cls, ruta):
+        with open(ruta, "r", encoding="utf-8") as archivo:
+            datos = json.load(archivo)
+
+        red = cls()
+
+        for datos_usuario in datos["usuarios"]:
+            usuario = Usuario.desde_dict(datos_usuario)
+            red.anadir(usuario)
+
+        for alias_seguidor, alias_seguido in datos["seguimientos"]:
+            red.usuarios[alias_seguidor].seguir(
+                red.usuarios[alias_seguido]
+            )
+
+        return red

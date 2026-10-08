@@ -3,7 +3,6 @@ from red_social.red import RedSocial
 from red_social.usuario import Usuario
 
 
-
 def test_red_social_empieza_vacia():
     red = RedSocial()
 
@@ -95,3 +94,28 @@ def test_mostrar_timeline(capsys):
     captured = capsys.readouterr()
 
     assert "@ana: Hola mundo" in captured.out
+
+
+def test_desde_json_carga_usuarios_y_seguimientos(mocker):
+    contenido = """
+    {
+        "usuarios": [
+            {"nombre": "Ana", "alias": "@ana"},
+            {"nombre": "Luis", "alias": "@luis"}
+        ],
+        "seguimientos": [
+            ["@luis", "@ana"]
+        ]
+    }
+    """
+
+    mocker.patch(
+        "builtins.open",
+        mocker.mock_open(read_data=contenido)
+    )
+
+    red = RedSocial.desde_json("datos/usuarios.json")
+
+    assert "@ana" in red.usuarios
+    assert "@luis" in red.usuarios
+    assert red.usuarios["@luis"].sigue_a(red.usuarios["@ana"])
