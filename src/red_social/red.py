@@ -57,3 +57,6 @@ class RedSocial:
             )
 
         return red
+
+    def __len__(self):
+        return len(self.usuarios)

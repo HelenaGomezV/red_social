@@ -119,3 +119,11 @@ def test_desde_json_carga_usuarios_y_seguimientos(mocker):
     assert "@ana" in red.usuarios
     assert "@luis" in red.usuarios
     assert red.usuarios["@luis"].sigue_a(red.usuarios["@ana"])
+
+def test_len_red_social():
+    red = RedSocial()
+
+    red.registrar("Ana", "@ana")
+    red.registrar("Luis", "@luis")
+
+    assert len(red) == 2
