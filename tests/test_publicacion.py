@@ -1,7 +1,6 @@
 import pytest
 
 from red_social.publicacion import Publicacion, Tweet, Respuesta, Retweet
-from red_social.usuario import Usuario
 
 
 class PublicacionPrueba(Publicacion):
@@ -9,9 +8,7 @@ class PublicacionPrueba(Publicacion):
         return self.texto
 
 
-def test_publicacion_guarda_datos():
-    ana = Usuario("Ana", "@ana")
-
+def test_publicacion_guarda_datos(ana):
     publicacion = PublicacionPrueba(ana, "Hola")
 
     assert publicacion.autor == ana
@@ -24,14 +21,12 @@ def test_publicacion_guarda_datos():
     " ",
     "a" * 281,
 ])
-def test_texto_invalido_lanza_error(texto):
-    ana = Usuario("Ana", "@ana")
-
+def test_texto_invalido_lanza_error(ana, texto):
     with pytest.raises(ValueError):
         PublicacionPrueba(ana, texto)
 
-def test_dar_me_gusta_incrementa_contador():
-    ana = Usuario("Ana", "@ana")
+
+def test_dar_me_gusta_incrementa_contador(ana):
     publicacion = PublicacionPrueba(ana, "Hola")
 
     assert publicacion.me_gusta == 0
@@ -50,33 +45,25 @@ def test_dar_me_gusta_incrementa_contador():
     ("#Python es #Genial", ["#python", "#genial"]),
     ("Hola #Python, qué tal", ["#python"]),
     ("#Python #python #PYTHON", ["#python"]),
-    ])
-
+])
 def test_extraer_hashtags(texto, esperado):
     assert PublicacionPrueba.extraer_hashtags(texto) == esperado
 
 
-def test_tweet_str():
-    ana = Usuario("Ana", "@ana")
+def test_tweet_str(ana):
     tweet = Tweet(ana, "Hola mundo")
 
     assert str(tweet) == "@ana: Hola mundo"
 
-def test_respuesta_str():
-    ana = Usuario("Ana", "@ana")
-    luis = Usuario("Luis", "@luis")
 
-    tweet = Tweet(ana, "Hola mundo")
+def test_respuesta_str(ana, luis, tweet):
     respuesta = Respuesta(luis, "¡Hola Ana!", tweet)
 
     assert respuesta.original == tweet
     assert str(respuesta) == "@luis ↩ @ana: ¡Hola Ana!"
 
-def test_retweet_comparte_el_texto_del_original():
-    ana = Usuario("Ana", "@ana")
-    luis = Usuario("Luis", "@luis")
 
-    tweet = Tweet(ana, "Hola #Python")
+def test_retweet_comparte_el_texto_del_original(ana, luis, tweet):
     retweet = Retweet(luis, tweet)
 
     assert retweet.original == tweet

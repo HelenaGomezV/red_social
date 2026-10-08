@@ -3,44 +3,33 @@ from red_social.red import RedSocial
 from red_social.usuario import Usuario
 
 
-def test_red_social_empieza_vacia():
-    red = RedSocial()
-
+def test_red_social_empieza_vacia(red):
     assert red.usuarios == {}
     assert red.publicaciones == []
 
-def test_anadir_usuario():
-    red = RedSocial()
-    ana = Usuario("Ana", "@ana")
 
+def test_anadir_usuario(red, ana):
     red.anadir(ana)
 
     assert red.usuarios["@ana"] == ana
 
-def test_registrar_usuario():
-    red = RedSocial()
 
+def test_registrar_usuario(red):
     ana = red.registrar("Ana", "@ana")
 
     assert ana.nombre == "Ana"
     assert ana.alias == "@ana"
     assert red.usuarios["@ana"] == ana
 
-def test_publicar_anade_publicacion():
-    red = RedSocial()
-    ana = Usuario("Ana", "@ana")
-    tweet = Tweet(ana, "Hola mundo")
 
+def test_publicar_anade_publicacion(red, ana, tweet):
     resultado = red.publicar(tweet)
 
     assert resultado == tweet
     assert tweet in red.publicaciones
 
-def test_timeline_muestra_publicaciones_del_usuario_y_seguidos():
-    red = RedSocial()
 
-    ana = Usuario("Ana", "@ana")
-    luis = Usuario("Luis", "@luis")
+def test_timeline_muestra_publicaciones_del_usuario_y_seguidos(red, ana, luis):
     marta = Usuario("Marta", "@marta")
 
     red.anadir(ana)
@@ -63,12 +52,8 @@ def test_timeline_muestra_publicaciones_del_usuario_y_seguidos():
     assert tweet_luis in timeline
     assert tweet_marta not in timeline
 
-def test_tendencias_cuenta_hashtags():
-    red = RedSocial()
 
-    ana = Usuario("Ana", "@ana")
-    luis = Usuario("Luis", "@luis")
-
+def test_tendencias_cuenta_hashtags(red, ana, luis):
     tweet1 = Tweet(ana, "Hola #Python")
     tweet2 = Tweet(luis, "Aprendiendo #Python y #Programacion")
 
@@ -81,12 +66,9 @@ def test_tendencias_cuenta_hashtags():
         "#python": 2,
         "#programacion": 1,
     }
-def test_mostrar_timeline(capsys):
-    red = RedSocial()
 
-    ana = Usuario("Ana", "@ana")
-    tweet = Tweet(ana, "Hola mundo")
 
+def test_mostrar_timeline(red, ana, tweet, capsys):
     red.publicar(tweet)
 
     red.mostrar_timeline(ana)
@@ -120,17 +102,15 @@ def test_desde_json_carga_usuarios_y_seguimientos(mocker):
     assert "@luis" in red.usuarios
     assert red.usuarios["@luis"].sigue_a(red.usuarios["@ana"])
 
-def test_len_red_social():
-    red = RedSocial()
 
+def test_len_red_social(red):
     red.registrar("Ana", "@ana")
     red.registrar("Luis", "@luis")
 
     assert len(red) == 2
 
-def test_iter_usuarios_ordenados_por_alias():
-    red = RedSocial()
 
+def test_iter_usuarios_ordenados_por_alias(red):
     red.registrar("Luis", "@luis")
     red.registrar("Ana", "@ana")
     red.registrar("Marta", "@marta")
@@ -143,18 +123,16 @@ def test_iter_usuarios_ordenados_por_alias():
         "@marta",
     ]
 
-def test_contains_comprueba_si_alias_existe():
-    red = RedSocial()
 
+def test_contains_comprueba_si_alias_existe(red):
     red.registrar("Ana", "@ana")
 
     assert "@ana" in red
     assert "@luis" not in red
 
-def test_getitem_devuelve_usuario():
-    red = RedSocial()
 
-    ana = red.registrar("Ana", "@ana")
+def test_getitem_devuelve_usuario(red, ana):
+    red.anadir(ana)
 
     assert red["@ana"] == ana
 
