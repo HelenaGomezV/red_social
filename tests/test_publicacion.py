@@ -1,6 +1,6 @@
 import pytest
 
-from red_social.publicacion import Publicacion
+from red_social.publicacion import Publicacion, Tweet
 from red_social.usuario import Usuario
 
 
@@ -54,3 +54,10 @@ def test_dar_me_gusta_incrementa_contador():
 
 def test_extraer_hashtags(texto, esperado):
     assert PublicacionPrueba.extraer_hashtags(texto) == esperado
+
+
+def test_tweet_str():
+    ana = Usuario("Ana", "@ana")
+    tweet = Tweet(ana, "Hola mundo")
+
+    assert str(tweet) == "@ana: Hola mundo"

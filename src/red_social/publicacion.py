@@ -35,3 +35,7 @@ class Publicacion(ABC):
                     hashtags.append(hashtag)
 
         return hashtags
+
+class Tweet(Publicacion):
+    def __str__(self):
+        return f"{self.autor.alias}: {self.texto}"
