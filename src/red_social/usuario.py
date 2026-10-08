@@ -33,4 +33,13 @@ class Usuario:
     @classmethod
     def desde_dict(cls, datos):
         return cls(datos["nombre"], datos["alias"])
+    
+    def __str__(self):
+        return f"{self.nombre} ({self.alias})"
+
+    def __eq__(self, otro):
+        if not isinstance(otro, Usuario):
+            return False
+
+        return self.alias == otro.alias
 

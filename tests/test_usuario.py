@@ -74,3 +74,23 @@ def test_desde_dict():
     assert ana.nombre == "Ana"
     assert ana.alias == "@ana"
     assert ana.seguidos == []
+
+def test_str_usuario():
+    ana = Usuario("Ana", "@ana")
+
+    assert str(ana) == "Ana (@ana)"
+
+
+def test_usuarios_son_iguales_si_tienen_mismo_alias():
+    ana1 = Usuario("Ana", "@ana")
+    ana2 = Usuario("Otra Ana", "@ana")
+    luis = Usuario("Luis", "@luis")
+
+    assert ana1 == ana2
+    assert ana1 != luis
+
+
+def test_alias_que_ya_tiene_arroba_no_cambia():
+    ana = Usuario("Ana", "@ana")
+
+    assert ana.alias == "@ana"
