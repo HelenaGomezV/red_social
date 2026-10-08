@@ -1,6 +1,6 @@
 import pytest
 
-from red_social.publicacion import Publicacion, Tweet, Respuesta
+from red_social.publicacion import Publicacion, Tweet, Respuesta, Retweet
 from red_social.usuario import Usuario
 
 
@@ -71,3 +71,14 @@ def test_respuesta_str():
 
     assert respuesta.original == tweet
     assert str(respuesta) == "@luis ↩ @ana: ¡Hola Ana!"
+
+def test_retweet_comparte_el_texto_del_original():
+    ana = Usuario("Ana", "@ana")
+    luis = Usuario("Luis", "@luis")
+
+    tweet = Tweet(ana, "Hola #Python")
+    retweet = Retweet(luis, tweet)
+
+    assert retweet.original == tweet
+    assert retweet.texto == tweet.texto
+    assert retweet.hashtags == tweet.hashtags
