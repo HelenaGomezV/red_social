@@ -39,3 +39,12 @@ class Publicacion(ABC):
 class Tweet(Publicacion):
     def __str__(self):
         return f"{self.autor.alias}: {self.texto}"
+
+
+class Respuesta(Publicacion):
+    def __init__(self, autor, texto, original):
+        super().__init__(autor, texto)
+        self.original = original
+
+    def __str__(self):
+        return f"{self.autor.alias} ↩ {self.original.autor.alias}: {self.texto}"

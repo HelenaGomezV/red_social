@@ -1,6 +1,6 @@
 import pytest
 
-from red_social.publicacion import Publicacion, Tweet
+from red_social.publicacion import Publicacion, Tweet, Respuesta
 from red_social.usuario import Usuario
 
 
@@ -61,3 +61,13 @@ def test_tweet_str():
     tweet = Tweet(ana, "Hola mundo")
 
     assert str(tweet) == "@ana: Hola mundo"
+
+def test_respuesta_str():
+    ana = Usuario("Ana", "@ana")
+    luis = Usuario("Luis", "@luis")
+
+    tweet = Tweet(ana, "Hola mundo")
+    respuesta = Respuesta(luis, "¡Hola Ana!", tweet)
+
+    assert respuesta.original == tweet
+    assert str(respuesta) == "@luis ↩ @ana: ¡Hola Ana!"
