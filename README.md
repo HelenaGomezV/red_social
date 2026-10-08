@@ -180,6 +180,46 @@ Tendencias:
 - JSON
 - Programación orientada a objetos
 
+## Instalación y ejecución
+
+El proyecto utiliza `uv` para gestionar el entorno y las dependencias.
+
+Para instalar las dependencias:
+
+```bash
+uv sync
+```
+
+Para ejecutar los tests:
+
+```bash
+uv run pytest -v
+```
+
+Para comprobar el código con Ruff:
+
+```bash
+uv run ruff check .
+```
+
+Para ejecutar la aplicación:
+
+```bash
+uv run python main.py
+```
+
+Todos los comandos deben ejecutarse desde la raíz del proyecto.
+
+## Estado del proyecto
+
+El proyecto ha sido comprobado mediante:
+
+- Tests automatizados con `pytest`.
+- Comprobación de estilo y errores con `ruff`.
+- Ejecución completa de `main.py`.
+
+La aplicación carga los datos iniciales desde `datos/usuarios.json` y produce la salida esperada por el ejercicio.
+
 ## Objetivo del proyecto
 
 El objetivo del proyecto es aplicar los conceptos aprendidos de Python mediante la creación de una pequeña aplicación estructurada en diferentes clases y módulos, acompañada de tests automatizados.
