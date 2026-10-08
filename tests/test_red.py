@@ -65,20 +65,33 @@ def test_timeline_muestra_publicaciones_del_usuario_y_seguidos():
     assert tweet_marta not in timeline
 
 def test_tendencias_cuenta_hashtags():
-        red = RedSocial()
+    red = RedSocial()
 
-        ana = Usuario("Ana", "@ana")
-        luis = Usuario("Luis", "@luis")
+    ana = Usuario("Ana", "@ana")
+    luis = Usuario("Luis", "@luis")
 
-        tweet1 = Tweet(ana, "Hola #Python")
-        tweet2 = Tweet(luis, "Aprendiendo #Python y #Programacion")
+    tweet1 = Tweet(ana, "Hola #Python")
+    tweet2 = Tweet(luis, "Aprendiendo #Python y #Programacion")
 
-        red.publicar(tweet1)
-        red.publicar(tweet2)
+    red.publicar(tweet1)
+    red.publicar(tweet2)
 
-        tendencias = red.tendencias()
+    tendencias = red.tendencias()
 
-        assert tendencias == {
-            "#python": 2,
-            "#programacion": 1,
-        }
+    assert tendencias == {
+        "#python": 2,
+        "#programacion": 1,
+    }
+def test_mostrar_timeline(capsys):
+    red = RedSocial()
+
+    ana = Usuario("Ana", "@ana")
+    tweet = Tweet(ana, "Hola mundo")
+
+    red.publicar(tweet)
+
+    red.mostrar_timeline(ana)
+
+    captured = capsys.readouterr()
+
+    assert "@ana: Hola mundo" in captured.out

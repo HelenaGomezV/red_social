@@ -36,4 +36,6 @@ class RedSocial:
 
         return tendencias
 
-    
+    def mostrar_timeline(self, usuario):
+        for publicacion in self.timeline(usuario):
+            print(publicacion)
