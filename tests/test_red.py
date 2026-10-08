@@ -127,3 +127,35 @@ def test_len_red_social():
     red.registrar("Luis", "@luis")
 
     assert len(red) == 2
+
+def test_iter_usuarios_ordenados_por_alias():
+    red = RedSocial()
+
+    red.registrar("Luis", "@luis")
+    red.registrar("Ana", "@ana")
+    red.registrar("Marta", "@marta")
+
+    usuarios = list(red)
+
+    assert [usuario.alias for usuario in usuarios] == [
+        "@ana",
+        "@luis",
+        "@marta",
+    ]
+
+def test_contains_comprueba_si_alias_existe():
+    red = RedSocial()
+
+    red.registrar("Ana", "@ana")
+
+    assert "@ana" in red
+    assert "@luis" not in red
+
+def test_getitem_devuelve_usuario():
+    red = RedSocial()
+
+    ana = red.registrar("Ana", "@ana")
+
+    assert red["@ana"] == ana
+
+

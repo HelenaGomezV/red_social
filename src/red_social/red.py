@@ -60,3 +60,12 @@ class RedSocial:
 
     def __len__(self):
         return len(self.usuarios)
+
+    def __iter__(self):
+        return iter(sorted(self.usuarios.values(), key=lambda usuario: usuario.alias))
+    
+    def __contains__(self, alias):
+        return alias in self.usuarios
+
+    def __getitem__(self, alias):
+        return self.usuarios[alias]
