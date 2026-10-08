@@ -63,3 +63,22 @@ def test_timeline_muestra_publicaciones_del_usuario_y_seguidos():
     assert tweet_ana in timeline
     assert tweet_luis in timeline
     assert tweet_marta not in timeline
+
+def test_tendencias_cuenta_hashtags():
+        red = RedSocial()
+
+        ana = Usuario("Ana", "@ana")
+        luis = Usuario("Luis", "@luis")
+
+        tweet1 = Tweet(ana, "Hola #Python")
+        tweet2 = Tweet(luis, "Aprendiendo #Python y #Programacion")
+
+        red.publicar(tweet1)
+        red.publicar(tweet2)
+
+        tendencias = red.tendencias()
+
+        assert tendencias == {
+            "#python": 2,
+            "#programacion": 1,
+        }

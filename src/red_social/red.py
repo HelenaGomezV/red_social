@@ -1,3 +1,4 @@
+from red_social.publicacion import Tweet
 from red_social.usuario import Usuario
 
 class RedSocial:
@@ -25,3 +26,14 @@ class RedSocial:
             for publicacion in self.publicaciones
             if publicacion.autor in usuarios_timeline
     ]
+
+    def tendencias(self):
+        tendencias = {}
+
+        for publicacion in self.publicaciones:
+            for hashtag in publicacion.hashtags:
+                tendencias[hashtag] = tendencias.get(hashtag, 0) + 1
+
+        return tendencias
+
+    
