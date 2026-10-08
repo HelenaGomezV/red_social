@@ -53,3 +53,24 @@ def test_numero_seguidos():
     ana.seguir(luis)
 
     assert ana.numero_seguidos == 1
+
+
+def test_a_dict():
+    ana = Usuario("Ana", "@ana")
+
+    assert ana.a_dict() == {
+        "nombre": "Ana",
+        "alias": "@ana"
+    }
+
+def test_desde_dict():
+    datos = {
+        "nombre": "Ana",
+        "alias": "@ana"
+    }
+
+    ana = Usuario.desde_dict(datos)
+
+    assert ana.nombre == "Ana"
+    assert ana.alias == "@ana"
+    assert ana.seguidos == []

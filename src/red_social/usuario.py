@@ -23,3 +23,14 @@ class Usuario:
     @property
     def numero_seguidos(self):
         return len(self.seguidos)
+
+    def a_dict(self):
+        return {
+            "nombre": self.nombre,
+            "alias": self.alias
+        }
+
+    @classmethod
+    def desde_dict(cls, datos):
+        return cls(datos["nombre"], datos["alias"])
+
